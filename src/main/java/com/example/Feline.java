@@ -4,9 +4,18 @@ import java.util.List;
 
 public class Feline extends Animal implements Predator {
 
+    private Animal animal;
+
+    public Feline() {
+    }
+
+    public Feline(Animal animal) {
+        this.animal = animal;
+    }
+
     @Override
     public List<String> eatMeat() throws Exception {
-        return getFood("Хищник");
+        throw new Exception("Не могу есть мясо!");
     }
 
     @Override
