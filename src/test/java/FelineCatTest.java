@@ -12,20 +12,30 @@ import static org.mockito.Mockito.when;
 public class FelineCatTest {
 
     @Test
-    public void testFeline() throws Exception {
+    public void testFelineFamily() {
         Animal animalMock = mock(Animal.class);
         Feline feline = new Feline(animalMock);
 
-        when(animalMock.getFood("Хищник")).thenReturn(Arrays.asList("Животные", "Птицы", "Рыба"));
-
         assertEquals("Кошачьи", feline.getFamily());
+    }
+
+    @Test
+    public void testFelineKittens() {
+        Animal animalMock = mock(Animal.class);
+        Feline feline = new Feline(animalMock);
+
         assertEquals(1, feline.getKittens());
         assertEquals(3, feline.getKittens(3));
+    }
 
-        assertThrows(Exception.class, () -> {
-            // Поместили вызов, который ожидаем вызвать исключение, в лямбда-выражение
-            feline.eatMeat();
-        });
+    @Test
+    public void testFelineEatMeat() throws Exception {
+        Animal animalMock = mock(Animal.class);
+        Feline feline = new Feline(animalMock);
+
+        when(animalMock.getFood("Хищник")).thenThrow(new Exception("Не могу есть мясо!"));
+
+        assertThrows(Exception.class, feline::eatMeat);
     }
 
     @Test

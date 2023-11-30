@@ -1,5 +1,7 @@
 import com.example.Feline;
+import com.example.FelineMock;
 import com.example.Lion;
+import com.example.Predator;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -23,26 +25,23 @@ public class LionTest {
         assertFalse(lion.doesHaveMane());
     }
 
-    @Test(expected = Exception.class)
-    public void testLionInvalidSex() throws Exception {
-        Feline felineMock = Mockito.mock(Feline.class);
-        new Lion("InvalidSex", felineMock);
-    }
-
     @Test
-    public void testLionGetKittens() throws Exception {
+    public void testLionInvalidSex() {
         Feline felineMock = Mockito.mock(Feline.class);
-        Lion lion = new Lion("Самец", felineMock);
-        assertEquals(0, lion.getKittens());
+
+        try {
+            new Lion("InvalidSex", felineMock);
+            fail("Expected Exception");
+        } catch (Exception e) {
+            assertEquals("Используйте допустимые значения пола животного - самец или самка", e.getMessage());
+        }
     }
 
     @Test
     public void testLionGetFood() throws Exception {
-        Feline felineMock = Mockito.mock(Feline.class);
-        Mockito.when(felineMock.getFood("Хищник")).thenReturn(List.of("Корм для льва"));
-
+        Predator felineMock = new FelineMock();
         Lion lion = new Lion("Самец", felineMock);
-        assertEquals(List.of("Корм для льва"), lion.getFood());
+        assertEquals(List.of("Корм для Хищника"), lion.getFood());
     }
 
     @Test

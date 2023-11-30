@@ -15,7 +15,7 @@ public class Feline extends Animal implements Predator {
 
     @Override
     public List<String> eatMeat() throws Exception {
-        throw new Exception("Не могу есть мясо!");
+        return animal.getFood("Хищник");
     }
 
     @Override
